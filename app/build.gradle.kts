@@ -67,11 +67,6 @@ dependencies {
     implementation (libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-    // Paging
-    implementation (libs.androidx.paging.runtime.ktx)
-    // Coroutines
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.kotlinx.coroutines.android)
 
     // Coroutine Lifecycle Scopes
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
