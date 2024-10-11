@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RickAndMortyApi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_known_location">Last known location:</string>
+    <string name="time_of_creation">Time of creation:</string>
+    <string name="gender">Gender:</string>
+</resources>
