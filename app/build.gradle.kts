@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.dagger.hilt.android")
-    id ("org.jetbrains.kotlin.kapt")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -19,11 +17,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(
-            "String",
-            "BASE_URL",
-            "\"https://rickandmortyapi.com/api\""
-        )
     }
 
     buildTypes {
@@ -44,7 +37,6 @@ android {
     }
     buildFeatures {
       viewBinding = true
-        buildConfig = true
     }
 }
 
@@ -60,17 +52,23 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.compiler)
 
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    //Lifecycle KTX
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    //Koin
+    implementation(libs.koin.android)
+
     //Glide
     implementation (libs.glide)
-    implementation (libs.coil)
 
 
     implementation(libs.androidx.navigation.fragment.ktx)

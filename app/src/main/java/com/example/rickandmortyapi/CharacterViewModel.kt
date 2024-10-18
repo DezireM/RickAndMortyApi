@@ -3,13 +3,14 @@ package com.example.rickandmortyapi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.rickandmortyapi.api.CharacterRepository
+import androidx.lifecycle.viewModelScope
+import com.example.rickandmortyapi.data.repository.CharacterRepository
 import com.example.rickandmortyapi.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class CharacterViewModel @Inject constructor(
+class CharacterViewModel (
     private val repository: CharacterRepository
 ) : ViewModel() {
 
@@ -21,8 +22,9 @@ class CharacterViewModel @Inject constructor(
     }
 
     private fun fetchCharacters() {
-        repository.getAllCharacters().observeForever { characters ->
-            _characters.postValue(characters)
+        viewModelScope.launch {
+            val result = repository.getAllCharacters()
+            _characters.postValue(result)
         }
     }
 }

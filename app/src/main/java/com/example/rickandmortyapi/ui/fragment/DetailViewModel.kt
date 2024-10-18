@@ -3,13 +3,14 @@ package com.example.rickandmortyapi.ui.fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.rickandmortyapi.api.CharacterRepository
+import androidx.lifecycle.viewModelScope
+import com.example.rickandmortyapi.data.repository.CharacterRepository
 import com.example.rickandmortyapi.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(
+class DetailViewModel (
     private val repository: CharacterRepository
 ) : ViewModel() {
 
@@ -28,8 +29,8 @@ class DetailViewModel @Inject constructor(
 
     private fun fetchCharacterDetails() {
         characterId?.let { id ->
-            repository.getCharactersById(id).observeForever { resource ->
-                when (resource) {
+            viewModelScope.launch {
+                when (val resource = repository.getCharacterById(id)) {
                     is Resource.Success -> _characterDetails.postValue(resource.data)
                     is Resource.Error -> _error.postValue(resource.message)
                     is Resource.Loading -> {}
