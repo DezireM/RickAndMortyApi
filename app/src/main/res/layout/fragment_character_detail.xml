@@ -50,7 +50,8 @@
                             android:paddingStart="16dp"
                             android:textColor="@color/white"
                             android:textSize="26sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Taddy Mason" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -64,7 +65,7 @@
                                 android:id="@+id/img_circle"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
-                                android:src="@drawable/green" />
+                                android:src="@drawable/circle_green_big" />
 
                             <TextView
                                 android:id="@+id/tv_status"
@@ -73,7 +74,8 @@
                                 android:layout_marginStart="5dp"
                                 android:paddingStart="4dp"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                tools:text="Alive - Human" />
                         </LinearLayout>
 
                         <TextView
@@ -96,7 +98,8 @@
                             android:maxLines="1"
                             android:paddingStart="16dp"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            tools:text="Male" />
 
                         <TextView
                             android:id="@+id/tv_location"
@@ -118,7 +121,8 @@
                             android:maxLines="1"
                             android:paddingStart="16dp"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            tools:text="Earth (Replacement Dimension)" />
 
                         <TextView
                             android:id="@+id/tv_time"
@@ -140,8 +144,23 @@
                             android:maxLines="1"
                             android:paddingStart="16dp"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            tools:text="8:00:00" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="18dp"
+                            android:orientation="vertical">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_seasons"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_detail" />
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

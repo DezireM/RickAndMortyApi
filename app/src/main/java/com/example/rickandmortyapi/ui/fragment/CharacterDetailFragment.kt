@@ -6,25 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortyapi.R
 import com.example.rickandmortyapi.databinding.FragmentCharacterDetailBinding
-import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import coil.load
-import com.example.rickandmortyapi.network.model.Character
+import com.bumptech.glide.Glide
+import com.example.rickandmortyapi.data.model.Character
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-@AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
 
     private val binding by lazy {
         FragmentCharacterDetailBinding.inflate(layoutInflater)
     }
 
-    private val viewModel by viewModels<DetailViewModel>()
+    private val viewModel by viewModel<DetailViewModel>()
+
+    private lateinit var adapter: DetailAdapter
+    private var mList = ArrayList<Character>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,8 @@ class CharacterDetailFragment : Fragment() {
         viewModel.characterDetails.observe(viewLifecycleOwner) { character ->
             character?.let {
                 bind(it)
+                addDataToList(it)
+                setupRecyclerView()
             }
         }
 
@@ -50,6 +54,16 @@ class CharacterDetailFragment : Fragment() {
                 showToast(it)
             }
         }
+    }
+
+    private fun addDataToList(character: Character) {
+        mList.add(character)
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvSeasons.layoutManager = LinearLayoutManager(context)
+        adapter = DetailAdapter(mList)
+        binding.rvSeasons.adapter = adapter
     }
 
     private fun bind(character: Character) = with(binding) {
@@ -62,10 +76,10 @@ class CharacterDetailFragment : Fragment() {
             .format(Date())
         tvCurrentTime.text = currentTime
 
-
-        binding.imgDetail.load(character.image) {
-            placeholder(R.drawable.ic_launcher_background)
-        }
+        Glide.with(root.context)
+            .load(character.image)
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(binding.imgDetail)
 
         val circleDrawable = when (character.status) {
             "Alive" -> R.drawable.green
@@ -78,4 +92,5 @@ class CharacterDetailFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
 }

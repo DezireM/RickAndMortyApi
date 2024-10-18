@@ -11,14 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rickandmortyapi.CharacterAdapter
 import com.example.rickandmortyapi.CharacterViewModel
-import com.example.rickandmortyapi.network.model.Character
+import com.example.rickandmortyapi.data.model.Character
 import com.example.rickandmortyapi.databinding.FragmentCharacterBinding
 import com.example.rickandmortyapi.utils.Resource
 import com.example.rickandmortyapi.utils.gone
 import com.example.rickandmortyapi.utils.visible
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class CharacterFragment : Fragment() {
 
     private val binding by lazy {
@@ -77,7 +75,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun onClicked(character: Character) {
-        val action = CharacterFragmentDirections.actionCharacterFragmentToDetailFragment(character.id)
+        val action = CharacterFragmentDirections.actionCharacterFragmentToCharacterDetailFragment(character.id)
         findNavController().navigate(action)
     }
 }

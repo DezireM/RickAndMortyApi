@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapi.databinding.ItemCharacterBinding
-import com.example.rickandmortyapi.network.model.Character
+import com.example.rickandmortyapi.data.model.Character
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -15,18 +15,18 @@ import com.example.rickandmortyapi.R
 
 class CharacterAdapter(
     private val onClick: (Character) -> Unit
-) : ListAdapter<Character, CharacterAdapter.CartoonViewHolder>(diffUtil) {
+) : ListAdapter<Character, CharacterAdapter.CharacterViewHolder>(diffUtil) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartoonViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CartoonViewHolder(binding)
+        return CharacterViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CartoonViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class CartoonViewHolder(private val binding: ItemCharacterBinding) :
+    inner class CharacterViewHolder(private val binding: ItemCharacterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(character: Character) = with(binding) {
